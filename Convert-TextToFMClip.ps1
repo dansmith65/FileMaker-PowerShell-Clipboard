@@ -1,6 +1,23 @@
-﻿
+﻿<#
+.SYNOPSIS
+	Convert text on clipboard to FM clipboard format.
+.NOTES
+	Author     : Daniel Smith dansmith65@gmail.com
+	Requires   : Powershell to be running in single threaded mode (powershell.exe -sta)
+.LINK
+	https://github.com/dansmith65/FileMaker-PowerShell-Clipboard
+.PARAMETER 	Format
+	Mac-XMTB = table
+	Mac-XMFD = field
+	Mac-XMSC = script
+	Mac-XMSS = script step
+	Mac-XMFN = custom function
+	Mac-XMLO = layout object (.fp7)
+	Mac-XML2 = layout object (.fmp12)
+#>
+
 param (
-    [Parameter(Mandatory=$True)]
+    [Parameter(Mandatory=$True,Position=0)]
     [string]$Format
 )
 
@@ -47,7 +64,7 @@ Write-Host "# Convert text on clipboard to FM clipboard format."
 Write-Host "#############################################################################"
 Write-Host 
 if ([threading.thread]::CurrentThread.GetApartmentState() -eq "MTA") {
-   Show-Message "must be called in single threaded mode (pass -sta to powershell.exe)"
+   Show-Message "must be called in single threaded mode (powershell.exe -sta)"
    Exit
 }
 
@@ -106,4 +123,4 @@ $memStream.Write(
 
 [System.Windows.Forms.Clipboard]::SetData($format, $memStream)
 
-Show-Message "converted text to $format" -Milliseconds 2000
+# Show-Message "converted text to $format" -Milliseconds 2000

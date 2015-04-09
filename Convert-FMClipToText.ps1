@@ -1,4 +1,13 @@
-﻿
+﻿<#
+.SYNOPSIS
+	Convert FileMaker clipboard format to text.
+.NOTES
+	Author     : Daniel Smith dansmith65@gmail.com
+	Requires   : Powershell to be running in single threaded mode (powershell.exe -sta)
+.LINK
+	https://github.com/dansmith65/FileMaker-PowerShell-Clipboard
+#>
+
 
 ##########################################################
 # dependencies
@@ -38,11 +47,11 @@ function Show-Message {
 ##########################################################
 Write-Host "#############################################################################"
 Write-Host "#" $MyInvocation.MyCommand.Path
-Write-Host "# Convert FileMaker clipboard to text."
+Write-Host "# Convert FileMaker clipboard format to text."
 Write-Host "#############################################################################"
 Write-Host 
 if ([threading.thread]::CurrentThread.GetApartmentState() -eq "MTA") {
-   Show-Message "must be called in single threaded mode (pass -sta to powershell.exe)"
+   Show-Message "must be called in single threaded mode (powershell.exe -sta)"
    Exit
 }
 
@@ -121,4 +130,4 @@ $clip = $encoding.GetString($buffer)
 [System.Windows.Forms.Clipboard]::SetText($clip)
 
 
-Show-Message "converted $formatDescription to text" -Milliseconds 5000
+#Show-Message "converted $formatDescription to text" -Milliseconds 5000
