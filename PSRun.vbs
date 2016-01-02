@@ -9,4 +9,11 @@ param1 = Wscript.Arguments(1)
 
 strCMD="powershell -sta -noProfile -NonInteractive -nologo -file """ & filePath & """ " & param1
 
-objShell.Run strCMD,0
+objShell.Run strCMD,0,true
+
+'close script selector dialog in FM14
+objShell.SendKeys "{ESC}{ESC}"
+WScript.Sleep 10
+
+'paste script steps
+objShell.SendKeys "^v"
