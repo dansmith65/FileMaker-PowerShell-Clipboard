@@ -94,6 +94,11 @@ ElseIf ([System.Windows.Forms.Clipboard]::ContainsData("Mac-XMLO"))
     $format = "Mac-XMLO"
     $formatDescription = "Layout Object .fp7"
 }
+ElseIf ([System.Windows.Forms.Clipboard]::ContainsData("Mac-"))
+{
+    $format = "Mac-"
+    $formatDescription = "Theme"
+}
 Else
 {
     Show-Message "NOT CONVERTED: FileMaker formatted data not on clipbard!" -Milliseconds 3000
