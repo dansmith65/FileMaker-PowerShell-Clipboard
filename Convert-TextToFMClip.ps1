@@ -14,6 +14,7 @@
 	Mac-XMFN = custom function
 	Mac-XMLO = layout object (.fp7)
 	Mac-XML2 = layout object (.fmp12)
+	Mac-XMVL = value list (FM16)
 	Mac-     = Theme
 #>
 
