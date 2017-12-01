@@ -94,15 +94,15 @@ ElseIf ([System.Windows.Forms.Clipboard]::ContainsData("Mac-XMLO"))
     $format = "Mac-XMLO"
     $formatDescription = "Layout Object .fp7"
 }
-ElseIf ([System.Windows.Forms.Clipboard]::ContainsData("Mac-"))
-{
-    $format = "Mac-"
-    $formatDescription = "Theme"
-}
 ElseIf ([System.Windows.Forms.Clipboard]::ContainsData("Mac-XMVL"))
 {
     $format = "Mac-XMVL"
     $formatDescription = "value list (FM16)"
+}
+ElseIf ([System.Windows.Forms.Clipboard]::ContainsData("Mac-"))
+{
+    $format = "Mac-"
+    $formatDescription = "Theme"
 }
 Else
 {
