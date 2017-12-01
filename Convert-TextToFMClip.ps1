@@ -80,8 +80,7 @@ If (! [System.Windows.Forms.Clipboard]::ContainsData("Text"))
     Show-Message "NOT CONVERTED: Text not on the clipbard!" -Milliseconds 3000
     Exit
 }
-$clipText = [System.Windows.Forms.Clipboard]::GetText("Text")
-
+$clipText = [System.Windows.Forms.Clipboard]::GetText()
 
 
 
