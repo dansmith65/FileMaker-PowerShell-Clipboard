@@ -106,7 +106,7 @@ ElseIf ([System.Windows.Forms.Clipboard]::ContainsData("Mac-"))
 }
 Else
 {
-    Show-Message "NOT CONVERTED: FileMaker formatted data not on clipbard!" -Milliseconds 3000
+    Show-Message "NOT CONVERTED: FileMaker formatted data not on clipboard!" -Milliseconds 3000
     Exit
 }
 
