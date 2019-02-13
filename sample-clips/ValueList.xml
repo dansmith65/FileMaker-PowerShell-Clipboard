@@ -1,0 +1,8 @@
+<fmxmlsnippet type="FMObjectList">
+	<ValueList id="1" name="test">
+		<Source value="Custom"/>
+		<CustomValues>
+			<Text>setset</Text>
+		</CustomValues>
+	</ValueList>
+</fmxmlsnippet>

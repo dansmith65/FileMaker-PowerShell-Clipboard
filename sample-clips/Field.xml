@@ -1,0 +1,19 @@
+<fmxmlsnippet type="FMObjectList">
+	<Field id="1" dataType="Text" fieldType="Normal" name="PrimaryKey">
+		<TagList secondary="True"/>
+		<Comment>Unique identifier of each record in this table</Comment>
+		<AutoEnter allowEditing="False" overwriteExistingValue="True" alwaysEvaluate="False" constant="False" furigana="False" lookup="False" calculation="True">
+			<ConstantData/>
+			<Calculation table="Table">
+				<![CDATA[Get( UUID )]]>
+			</Calculation>
+		</AutoEnter>
+		<Validation message="False" maxLength="False" valuelist="False" calculation="False" alwaysValidateCalculation="False" type="OnlyDuringDataEntry">
+			<NotEmpty value="True"/>
+			<Unique value="True"/>
+			<Existing value="False"/>
+			<StrictValidation value="True"/>
+		</Validation>
+		<Storage autoIndex="True" index="Minimal" indexLanguage="Unicode_Raw" global="False" maxRepetition="1"/>
+	</Field>
+</fmxmlsnippet>

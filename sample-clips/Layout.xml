@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fmxmlsnippet type="LayoutObjectList">
+	<Layout enclosingRectTop ="52.0000000" enclosingRectLeft ="487.0000000" enclosingRectBottom ="70.0000000" enclosingRectRight ="502.0000000">
+		<Object type="Text" key="17" LabelKey="0" flags="0" rotation="0">
+			<Bounds top="52.0000000" left="487.0000000" bottom="70.0000000" right="502.0000000"/>
+			<TextObj flags="0">
+				<ExtendedAttributes fontHeight="12" graphicFormat="5">
+					<NumFormat flags="2304" charStyle="0" negativeStyle="0" currencySymbol="$" thousandsSep="44" decimalPoint="46" negativeColor="#DD000000" decimalDigits="2" trueString="Yes" falseString="No"/>
+					<DateFormat format="0" charStyle="0" monthStyle="0" dayStyle="0" separator="47">
+						<DateElement>3</DateElement>
+						<DateElement>6</DateElement>
+						<DateElement>1</DateElement>
+						<DateElement>8</DateElement>
+						<DateElementSep index="0"/>
+						<DateElementSep index="1">, </DateElementSep>
+						<DateElementSep index="2"> </DateElementSep>
+						<DateElementSep index="3">, </DateElementSep>
+						<DateElementSep index="4"/>
+					</DateFormat>
+					<TimeFormat flags="143" charStyle="0" hourStyle="0" minsecStyle="1" separator="58" amString=" AM" pmString=" PM" ampmString=""/>
+					<CharacterStyle mask="32695">
+						<Font-family codeSet="Roman" fontId="2" postScript="ArialMT,sans-serif">arial,sans-serif</Font-family>
+						<Font-size>12</Font-size>
+						<Face>0</Face>
+						<Color>#707070</Color>
+					</CharacterStyle>
+				</ExtendedAttributes>
+				<Styles>
+					<FullCSS>
+self:normal .self&#10;{&#10;&#09;background-image: none;&#10;&#09;background-position: 0% 0%;&#10;&#09;background-size: auto;&#10;&#09;background-repeat: repeat repeat;&#10;&#09;background-origin: padding-box;&#10;&#09;background-clip: border-box;&#10;&#09;background-color: rgba(0%,0%,0%,0);&#10;&#09;border-top-color: rgba(0%,0%,0%,0);&#10;&#09;border-right-color: rgba(0%,0%,0%,0);&#10;&#09;border-bottom-color: rgba(0%,0%,0%,0);&#10;&#09;border-left-color: rgba(0%,0%,0%,0);&#10;&#09;border-top-style: none;&#10;&#09;border-right-style: none;&#10;&#09;border-bottom-style: none;&#10;&#09;border-left-style: none;&#10;&#09;border-top-width: 0pt;&#10;&#09;border-right-width: 0pt;&#10;&#09;border-bottom-width: 0pt;&#10;&#09;border-left-width: 0pt;&#10;&#09;border-top-right-radius: 0pt 0pt;&#10;&#09;border-bottom-right-radius: 0pt 0pt;&#10;&#09;border-bottom-left-radius: 0pt 0pt;&#10;&#09;border-top-left-radius: 0pt 0pt;&#10;&#09;border-image-source: none;&#10;&#09;border-image-slice: 100% 100% 100% 100% fill;&#10;&#09;border-image-width: 1 1 1 1;&#10;&#09;border-image-outset: 0 0 0 0;&#10;&#09;border-image-repeat: stretch stretch;&#10;&#09;outline-width: 0pt;&#10;&#09;outline-style: none;&#10;&#09;outline-color: invert;&#10;&#09;outline-offset: 0pt;&#10;&#09;font-family: -fm-font-family(arial,sans-serif,ArialMT;sans-serif);&#10;&#09;font-weight: normal;&#10;&#09;font-stretch: normal;&#10;&#09;font-style: normal;&#10;&#09;font-variant: normal;&#10;&#09;font-size: 12pt;&#10;&#09;color: rgba(43.9216%,43.9216%,43.9216%,1);&#10;&#09;direction: ltr;&#10;&#09;line-height: 1line;&#10;&#09;block-progression: tb;&#10;&#09;text-align: left;&#10;&#09;text-transform: none;&#10;&#09;text-indent: 0pt;&#10;&#09;box-shadow: none;&#10;&#09;box-sizing: content-box;&#10;&#09;vertical-align: baseline;&#10;&#09;-fm-digit-set: roman;&#10;&#09;-fm-space-before: 0line;&#10;&#09;-fm-space-after: 0line;&#10;&#09;-fm-tab-stops: ;&#10;&#09;-fm-strikethrough: false;&#10;&#09;-fm-underline: none;&#10;&#09;-fm-glyph-variant: ;&#10;&#09;-fm-paragraph-margin-left: 0pt;&#10;&#09;-fm-paragraph-margin-right: 0pt;&#10;&#09;-fm-character-direction: ;&#10;&#09;-fm-use-default-appearance: false;&#10;&#09;-fm-override-with-classic: false;&#10;&#09;-fm-baseline-shift: 0pt;&#10;&#09;-fm-fill-effect: 0;&#10;&#09;-fm-highlight-color: rgba(0%,0%,0%,0);&#10;&#09;-fm-text-vertical-align: top;&#10;&#09;-fm-tategaki: false;&#10;&#09;-fm-rotation: 0;&#10;&#09;-fm-borders-between-reps: false;&#10;&#09;-fm-borders-baseline: false;&#10;&#09;-fm-texty-field: false;&#10;&#09;-fm-box-shadow-persist: none;&#10;}&#10;self:normal .inner_border&#10;{&#10;&#09;border-top-color: rgba(0%,0%,0%,0);&#10;&#09;border-right-color: rgba(0%,0%,0%,0);&#10;&#09;border-bottom-color: rgba(0%,0%,0%,0);&#10;&#09;border-left-color: rgba(0%,0%,0%,0);&#10;&#09;border-top-style: none;&#10;&#09;border-right-style: none;&#10;&#09;border-bottom-style: none;&#10;&#09;border-left-style: none;&#10;&#09;border-top-width: 0pt;&#10;&#09;border-right-width: 0pt;&#10;&#09;border-bottom-width: 0pt;&#10;&#09;border-left-width: 0pt;&#10;&#09;border-top-right-radius: 0pt 0pt;&#10;&#09;border-bottom-right-radius: 0pt 0pt;&#10;&#09;border-bottom-left-radius: 0pt 0pt;&#10;&#09;border-top-left-radius: 0pt 0pt;&#10;&#09;padding-top: 0pt;&#10;&#09;padding-right: 0pt;&#10;&#09;padding-bottom: 0pt;&#10;&#09;padding-left: 0pt;&#10;&#09;margin-top: 0pt;&#10;&#09;margin-right: 0pt;&#10;&#09;margin-bottom: 0pt;&#10;&#09;margin-left: 0pt;&#10;&#09;width: auto;&#10;&#09;height: auto;&#10;&#09;top: auto;&#10;&#09;right: auto;&#10;&#09;bottom: auto;&#10;&#09;left: auto;&#10;&#09;position: static;&#10;&#09;box-shadow: none;&#10;&#09;box-sizing: content-box;&#10;}&#10;self:normal .text&#10;{&#10;&#09;padding-top: 0pt;&#10;&#09;padding-right: 0pt;&#10;&#09;padding-bottom: 0pt;&#10;&#09;padding-left: 0pt;&#10;&#09;margin-top: 0pt;&#10;&#09;margin-right: 0pt;&#10;&#09;margin-bottom: 0pt;&#10;&#09;margin-left: 0pt;&#10;&#09;height: 100%;&#10;&#09;box-sizing: border-box;&#10;}&#10;self:normal .baseline&#10;{&#10;&#09;border-top-color: rgba(0%,0%,0%,0);&#10;&#09;border-right-color: rgba(0%,0%,0%,0);&#10;&#09;border-bottom-color: rgba(0%,0%,0%,0);&#10;&#09;border-left-color: rgba(0%,0%,0%,0);&#10;&#09;border-top-style: none;&#10;&#09;border-right-style: none;&#10;&#09;border-bottom-style: none;&#10;&#09;border-left-style: none;&#10;&#09;border-top-width: 0pt;&#10;&#09;border-right-width: 0pt;&#10;&#09;border-bottom-width: 0pt;&#10;&#09;border-left-width: 0pt;&#10;}&#10;</FullCSS>
+					<ThemeName>com.filemaker.theme.enlightened</ThemeName>
+				</Styles>
+				<CharacterStyleVector>
+					<Style>
+						<Data>火</Data>
+						<CharacterStyle mask="32695">
+							<Font-family codeSet="Roman" fontId="2" postScript="ArialMT,sans-serif">arial,sans-serif</Font-family>
+							<Font-size>12</Font-size>
+							<Face>0</Face>
+							<Color>#707070</Color>
+						</CharacterStyle>
+					</Style>
+				</CharacterStyleVector>
+				<ParagraphStyleVector>
+					<Style>
+						<Data>火</Data>
+						<ParagraphStyle mask="0">
+						</ParagraphStyle>
+					</Style>
+				</ParagraphStyleVector>
+			</TextObj>
+		</Object>
+	</Layout>
+</fmxmlsnippet>
