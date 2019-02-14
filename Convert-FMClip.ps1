@@ -124,6 +124,7 @@ if (! $fromFormat)
 		Throw-Message "No FM or text format on clipboard!"
 	}
 	$textClip = [System.Windows.Forms.Clipboard]::GetText()
+
 	Try
 	{
 		$result = Select-Xml -Content $textClip -Xpath "/fmxmlsnippet[@type='FMObjectList']/*[1]" -ErrorAction Stop
@@ -170,15 +171,19 @@ if (! $fromFormat)
 		{
 			$toFormat = "Mac-XMVL"
 		}
-		Else
-		{
-			Throw-Message "Could not determine clipboard format"
-		}
-		Write-Host "Text Format Detected: $toFormat"
 	}
 	Catch
 	{
 		Throw-Message "Clipboard did not contain FM compatible format"
+	}
+
+	if ($toFormat)
+	{
+		Write-Host "Text Format Detected: $toFormat"
+	}
+	else
+	{
+		Throw-Message "Could not determine clipboard format"
 	}
 }
 
