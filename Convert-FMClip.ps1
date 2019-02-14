@@ -24,7 +24,10 @@ Add-Type -AssemblyName System.Windows.Forms
 ##########################################################
 function Throw-Message {
 <#
-	This script is expected to be called directly via hotkey. This means the console will close as soon as the script exits. That wouldn't allow users to see error messages before the window closed. This function is meant to be used instead of throwing an error directly, which will allow users to view the message before the console closes.
+	This script is expected to be called directly via hotkey. This means the console will close as
+	soon as the script exits. That wouldn't allow users to see error messages before the window
+	closed. This function is meant to be used instead of throwing an error directly, which will
+	allow users to view the message before the console closes.
 #>
 	param (
 		[string]$Message
@@ -33,11 +36,12 @@ function Throw-Message {
 	Write-Host
 	
 	# alternative to Pause, which allows user to press any key
-    Write-Host "press any key to continue"
-    do {
-        Start-Sleep -milliseconds 100
-    } until ([console]::KeyAvailable)
-	$Host.UI.RawUI.FlushInputBuffer()
+	if (! $psISE)
+	{
+		Write-Host -NoNewLine 'Press any key to continue...';
+		$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+		Write-Host
+	}
 	
 	Throw $Message
 }
