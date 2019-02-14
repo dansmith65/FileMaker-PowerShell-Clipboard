@@ -158,6 +158,10 @@ if (! $fromFormat)
 		{
 			$toFormat = "Mac-XMSC"
 		}
+		elseif ($formatType -eq "Group") # script folder
+		{
+			$toFormat = "Mac-XMSC"
+		}
 		elseif ($formatType -eq "Theme")
 		{
 			$toFormat = "Mac-"
