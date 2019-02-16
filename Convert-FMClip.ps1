@@ -4,46 +4,66 @@
 	will result in clipboard being able to be pasted into either FileMaker
 	or a text editor.
 	Input/output formats will be automatically detected.
+
+.PARAMETER 	prettyPrint
+	When converting from FM to text format, pretty print the XML.
+	Convert-FMClip.prettyPrint environment variable will override this parameter.
+
+.PARAMETER 	prettyPrintChar
+	Character to use for indentation: "space", "tab", "cr", or "lf"
+	Convert-FMClip.prettyPrintChar environment variable will override this parameter.
+
+.PARAMETER 	prettyPrintIndentation
+	Number of prettyPrintChar to use for each level.
+	Convert-FMClip.prettyPrintIndentation environment variable will override this parameter.
+
 .NOTES
-	Author   : Daniel Smith dan@filemaker.consulting
-	Requires : Powershell to be running in single threaded mode (powershell.exe -sta)
+	Author:    Daniel Smith dan@filemaker.consulting
+	Requires:  Powershell to be running in single threaded mode (powershell.exe -sta)
+
 .LINK
 	https://github.com/dansmith65/FileMaker-PowerShell-Clipboard
 #>
 
+param (
+	[bool]$prettyPrint = $true,
+	[string]$prettyPrintChar = "tab",
+	[int]$prettyPrintIndentation = 1
+)
 
-##########################################################
-# dependencies
-##########################################################
-Add-Type -AssemblyName System.Windows.Forms
+Try {
+<#
+	This script is expected to be called directly via hotkey. This means the console will close as
+	soon as the script exits. That wouldn't allow users to see error messages before the window
+	closed. Therefore, all code in this script was put into a Try block which allows the Catch
+	block to display the message then pause to allow users to view it before the console closes.
+#>
 
 
 
 ##########################################################
 # functions
 ##########################################################
-function Throw-Message {
-<#
-	This script is expected to be called directly via hotkey. This means the console will close as
-	soon as the script exits. That wouldn't allow users to see error messages before the window
-	closed. This function is meant to be used instead of throwing an error directly, which will
-	allow users to view the message before the console closes.
-#>
-	param (
-		[string]$Message
+function Format-XML {
+<# source: https://stackoverflow.com/a/39271782/1327931 #>
+	Param (
+		[Parameter(ValueFromPipeline=$true,Mandatory=$true)][string]$xmlcontent,
+		[char]$indentChar,
+		[int]$indentation
 	)
-	Write-Host $Message -BackgroundColor Black -ForegroundColor Red
-	Write-Host
-	
-	# alternative to Pause, which allows user to press any key
-	if (! $psISE)
-	{
-		Write-Host -NoNewLine 'Press any key to continue...';
-		$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-		Write-Host
+	$xmldoc = New-Object -TypeName System.Xml.XmlDocument
+	$xmldoc.LoadXml($xmlcontent)
+	$sw = New-Object System.IO.StringWriter
+	$writer = New-Object System.Xml.XmlTextwriter($sw)
+	$writer.Formatting = [System.XML.Formatting]::Indented
+	if ($indentChar) {
+		$writer.IndentChar = $indentChar
 	}
-	
-	Throw $Message
+	if ($indentation) {
+		$writer.Indentation = $indentation
+	}
+	$xmldoc.WriteContentTo($writer)
+	$sw.ToString()
 }
 
 
@@ -55,10 +75,65 @@ Write-Host "####################################################################
 Write-Host "#" $MyInvocation.MyCommand.Path
 Write-Host "# Convert FileMaker clipboard format both to and from text."
 Write-Host "#############################################################################"
-Write-Host 
+
+
+
+##########################################################
+# validate
+##########################################################
 if ([threading.thread]::CurrentThread.GetApartmentState() -eq "MTA") {
-	Throw-Message "must be called in single threaded mode (powershell.exe -sta)"
+	throw "must be called in single threaded mode (powershell.exe -sta)"
 }
+
+
+
+##########################################################
+# set default parameters
+##########################################################
+if (${Env:Convert-FMClip.prettyPrint} -ne $null)
+{
+	$prettyPrint = [System.Convert]::ToBoolean(${Env:Convert-FMClip.prettyPrint})
+	Write-Debug "prettyPrint loaded from environment: $prettyPrint"
+}
+
+if (${Env:Convert-FMClip.prettyPrintChar} -ne $null)
+{
+	$prettyPrintChar =${Env:Convert-FMClip.prettyPrintChar}
+	Write-Debug "prettyPrintChar loaded from environment: $prettyPrintChar"
+}
+
+if (${Env:Convert-FMClip.prettyPrintIndentation} -ne $null)
+{
+	$prettyPrintIndentation =${Env:Convert-FMClip.prettyPrintIndentation}
+	Write-Debug "prettyPrintIndentation loaded from environment: $prettyPrintIndentation"
+}
+
+if ($prettyPrint)
+{
+	Write-Host "pretty print $prettyPrintIndentation $prettyPrintChar"
+	$prettyPrintCharMap = @{
+		tab   = 9
+		space = 32
+		lf    = 10
+		cr    = 13
+	}
+	if ($prettyPrintCharMap[$prettyPrintChar] -eq $null)
+	{
+		throw "invalid prettyPrintChar"
+	}
+}
+else
+{
+	Write-Host "don't pretty print"
+}
+Write-Host
+
+
+
+##########################################################
+# dependencies
+##########################################################
+Add-Type -AssemblyName System.Windows.Forms
 
 
 
@@ -66,6 +141,7 @@ if ([threading.thread]::CurrentThread.GetApartmentState() -eq "MTA") {
 # check if FileMaker format exists on clipboard
 # NOTE: $formatType isn't really needed; it's mostly for documentation and messages to user
 ##########################################################
+$fromFormat = $formatType = $null
 if ([System.Windows.Forms.Clipboard]::ContainsData("Mac-XMTB"))
 {
 	$fromFormat = "Mac-XMTB"
@@ -117,11 +193,12 @@ if ($fromFormat)
 ##########################################################
 # check if text xml format that appears to be FM compatible exists on the clipboard
 ##########################################################
+$toFormat = $null
 if (! $fromFormat)
 {
 	if (! [System.Windows.Forms.Clipboard]::ContainsText())
 	{
-		Throw-Message "No FM or text format on clipboard!"
+		throw "No FM or text format on clipboard!"
 	}
 	$textClip = [System.Windows.Forms.Clipboard]::GetText()
 
@@ -174,7 +251,7 @@ if (! $fromFormat)
 	}
 	Catch
 	{
-		Throw-Message "Clipboard did not contain FM compatible format"
+		throw "Clipboard did not contain FM compatible format"
 	}
 
 	if ($toFormat)
@@ -183,7 +260,7 @@ if (! $fromFormat)
 	}
 	else
 	{
-		Throw-Message "Could not determine clipboard format"
+		throw "Could not determine clipboard format"
 	}
 }
 
@@ -229,6 +306,10 @@ if ($fromFormat)
 	$readLength = $fmClip.Read($buffer, 0, $length)
 	$dispose = $fmClip.Dispose
 	$textClip = $encoding.GetString($buffer)
+	if ($prettyPrint)
+	{
+		$textClip = (Format-XML $textClip -indentation $prettyPrintIndentation -indentChar $prettyPrintCharMap[$prettyPrintChar])
+	}
 	
 	# add textClip to data object
 	# auto-convert to other formats (like text, oemtext, etc.)
@@ -256,7 +337,7 @@ elseif ($toFormat)
 }
 else
 {
-	Throw-Message "No FM or Text format detected, but I don't think this section of code should ever run; it's just a safety-catch"
+	throw "No FM or Text format detected, but I don't think this section of code should ever run; it's just a safety-catch"
 }
 
 
@@ -266,3 +347,21 @@ else
 ##########################################################
 # Write-Host ""; Write-Host "save these formats to the clipboard:"; $newClip.GetFormats();
 [System.Windows.Forms.Clipboard]::SetDataObject($newClip, $true)
+
+
+} Catch {
+	# show error message to user
+	Write-Host $error[0].Exception.Message -BackgroundColor Black -ForegroundColor Red
+	Write-Host
+
+	# alternative to Pause, which allows user to press any key
+	if (! $psISE)
+	{
+		Write-Host -NoNewLine 'Press any key to continue...';
+		$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+		Write-Host
+	}
+
+	# throw the error again so a calling script can access it
+	Throw
+}
