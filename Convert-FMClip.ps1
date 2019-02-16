@@ -18,6 +18,7 @@
 	Convert-FMClip.prettyPrintIndentation environment variable will override this parameter.
 
 .NOTES
+	Version:   2.0.0
 	Author:    Daniel Smith dan@filemaker.consulting
 	Requires:  Powershell to be running in single threaded mode (powershell.exe -sta)
 
