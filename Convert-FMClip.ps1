@@ -66,6 +66,21 @@ function Format-XML {
 	$xmldoc.WriteContentTo($writer)
 	$sw.ToString()
 }
+function Test-IsInteractiveShell {
+<#
+	.SYNOPSIS
+		Returns boolean determining if prompt was run noninteractive.
+	.DESCRIPTION
+		First, we check `[Environment]::UserInteractive` to determine if we're if the shell if running 
+		interactively. An example of not running interactively would be if the shell is running as a service.
+		If we are running interactively, we check the Command Line Arguments to see if the `-NonInteractive` 
+		switch was used; or an abbreviation of the switch.
+	.LINK
+		https://github.com/UNT-CAS/Test-IsNonInteractiveShell
+		(function was modified from this version before adding to GetSSL.ps1)
+#>
+	return ([Environment]::UserInteractive -and (-not ([Environment]::GetCommandLineArgs() | ?{ $_ -like '-NonI*' })))
+}
 
 
 
@@ -356,7 +371,7 @@ else
 	Write-Host
 
 	# alternative to Pause, which allows user to press any key
-	if (! $psISE)
+	if (!($psISE) -and (Test-IsInteractiveShell))
 	{
 		Write-Host -NoNewLine 'Press any key to continue...';
 		$null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
