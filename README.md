@@ -19,7 +19,10 @@ Why would you want to do this?
 1. Download the script and put it in any folder you choose.
 2. To run the script with the default options you can right-click on it and select **Run with PowerShell**. If you get an error about [Execution Policy][], you may need to modify the execution policy, or [temporarily bypass it][].
 3. When the script runs without error and successfully detects/converts formats, it will immediately close. If there is an error, the window will stay open so you can view it.
-4. I'd recommend setting up a hotkey to run it. I use <kbd>Alt</kbd> + <kbd>F2</kbd> defined in [PhraseExpander][], but there are many ways to setup a hotkey to run a program.
+4. I'd recommend setting up a hotkey to run it. I use <kbd>Alt</kbd> + <kbd>F2</kbd> defined in [PhraseExpander][], but there are many ways to setup a hotkey to run a program. Call it like this:
+   ```
+   powershell.exe -sta -file "C:\Path\To\Convert-FMClip.ps1"
+   ```
 5. [OPTIONAL] If you don't want the XML to be pretty printed, or if you prefer spaces over tabs, you can modify the [Set-Configuration.ps1](Set-Configuration.ps1) file, then run it.
 
 If you use a Mac, this project isn't for you. You can Find a similar set of scripts written in AppleScript here: https://github.com/DanShockley/FmClipTools .
