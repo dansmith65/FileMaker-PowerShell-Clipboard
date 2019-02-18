@@ -24,6 +24,10 @@ Why would you want to do this?
    powershell.exe -sta -file "C:\Path\To\Convert-FMClip.ps1"
    ```
 5. [OPTIONAL] If you don't want the XML to be pretty printed, or if you prefer spaces over tabs, you can modify the [Set-Configuration.ps1](Set-Configuration.ps1) file, then run it.
+6. [OPTIONAL] You can run the [ConvertAndPaste.vbs](ConvertAndPaste.vbs) script instead if you want to automatically paste after conversion. This script calls Convert-FMClip.ps1 from the same directory, so both files must exist in the same folder. You can call this script directly, like:
+   ```
+   "C:\Path\To\ConvertAndPaste.vbs"
+   ```
 
 If you use a Mac, this project isn't for you. You can Find a similar set of scripts written in AppleScript here: https://github.com/DanShockley/FmClipTools .
 
