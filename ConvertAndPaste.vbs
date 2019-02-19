@@ -3,7 +3,7 @@
 
 Set objShell=CreateObject("WScript.Shell")
 scriptdir = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
-strCMD="powershell.exe -sta -noProfile -nologo -file """ & scriptdir & "\Convert-FMClip.ps1" & """ " 
+strCMD="powershell.exe -sta -noProfile -nologo -ExecutionPolicy Bypass -file """ & scriptdir & "\Convert-FMClip.ps1" & """ " 
 exitCode = objShell.Run(strCMD, 1, true)
 
 If exitCode = 0 Then
