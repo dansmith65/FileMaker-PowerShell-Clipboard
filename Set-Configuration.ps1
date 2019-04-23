@@ -5,7 +5,7 @@
  ###############################################################################>
 
 
-setx Convert-FMClip.prettyPrint $null
+setx Convert-FMClip.prettyPrint $true
 	# $true or $false, Default is $true
 	# If True, will pretty-print the XML after converting from FM to XML
 

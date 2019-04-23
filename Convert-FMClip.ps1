@@ -46,7 +46,6 @@ Try {
 # functions
 ##########################################################
 function Format-XML {
-<# source: https://stackoverflow.com/a/39271782/1327931 #>
 	Param (
 		[Parameter(ValueFromPipeline=$true,Mandatory=$true)][string]$xmlcontent,
 		[char]$indentChar,
@@ -55,15 +54,39 @@ function Format-XML {
 	$xmldoc = New-Object -TypeName System.Xml.XmlDocument
 	$xmldoc.LoadXml($xmlcontent)
 	$sw = New-Object System.IO.StringWriter
-	$writer = New-Object System.Xml.XmlTextwriter($sw)
-	$writer.Formatting = [System.XML.Formatting]::Indented
-	if ($indentChar) {
-		$writer.IndentChar = $indentChar
-	}
+	$xmlsettings = New-Object System.Xml.XmlWriterSettings
+	$xmlsettings.NewLineHandling = "Entitize"
+		# this is the setting that keeps new lines encoded vs converting to CRLF
 	if ($indentation) {
-		$writer.Indentation = $indentation
+		$xmlsettings.Indent = $true
+		if ($indentChar) {
+			$xmlsettings.IndentChars = [String]$indentChar * $indentation
+		}
 	}
+	$writer = [System.Xml.Xmlwriter]::Create($sw, $xmlsettings)
 	$xmldoc.WriteContentTo($writer)
+	$writer.Flush()
+	$sw.ToString()
+}
+function Unformat-XML {
+	<#
+		It would be ideal if this function could safely convert new lines and tabs into their XML
+		encoded equivalent, which would make sure comments display as though they were edited in
+		FM. If this is not done, the comment can display as multi-line.
+		I said "safely" because new lines within CDATA blocks cannot be converted and there may be
+		other gotcha's I haven't thought of yet.
+	#>
+	Param (
+		[Parameter(ValueFromPipeline=$true,Mandatory=$true)][string]$xmlcontent
+	)
+	$xmldoc = New-Object -TypeName System.Xml.XmlDocument
+	$xmldoc.LoadXml($xmlcontent)
+	$sw = New-Object System.IO.StringWriter
+	$xmlsettings = New-Object System.Xml.XmlWriterSettings
+	$xmlsettings.NewLineHandling = "Entitize"
+	$writer = [System.Xml.Xmlwriter]::Create($sw, $xmlsettings)
+	$xmldoc.WriteContentTo($writer)
+	$writer.Flush()
 	$sw.ToString()
 }
 function Test-IsInteractiveShell {
@@ -338,6 +361,11 @@ elseif ($toFormat)
 	$offset = 4
 	$encoding = [System.Text.Encoding]::UTF8
 	
+	# uglify/remove pretty printing
+	# Am always doing this, regardless of the $prettyPrint option because the input text could have
+	# been manually converted/modified.
+	$textClip = (Unformat-XML $textClip)
+
 	# write to stream
 	$clipLength = $textClip.length
 	$totalLength = $offset + $textClip.length
