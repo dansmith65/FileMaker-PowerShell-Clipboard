@@ -239,7 +239,7 @@ if (! $fromFormat)
 	{
 		throw "No FM or text format on clipboard!"
 	}
-	$textClip = [System.Windows.Forms.Clipboard]::GetText()
+	$textClip = [System.Windows.Forms.Clipboard]::GetText([System.Windows.Forms.DataFormats]::UnicodeText)
 
 	Try
 	{
@@ -367,13 +367,18 @@ elseif ($toFormat)
 	$textClip = (Unformat-XML $textClip)
 
 	# write to stream
-	$clipLength = $textClip.length
-	$totalLength = $offset + $textClip.length
-	$lengthAsBytes = [BitConverter]::GetBytes($clipLength)
 	$clipAsBytes = $encoding.GetBytes($textClip)
+	$clipLength = $clipAsBytes.length
+	$totalLength = $offset + $clipLength
+	$lengthAsBytes = [BitConverter]::GetBytes($clipLength)
 	$fmClip = New-Object System.IO.MemoryStream($totalLength)
 	$fmClip.Write($lengthAsBytes, 0, $offset)
 	$fmClip.Write($clipAsBytes, 0, $clipLength)
+	
+	Write-Debug "clipLength: $clipLength"
+	Write-Debug "totalLength: $totalLength"
+	Write-Debug "lengthAsBytes: $lengthAsBytes"
+	Write-Debug "clipAsBytes: $clipAsBytes"
 	
 	# add fmClip to data object
 	# don't auto-convert to other formats
